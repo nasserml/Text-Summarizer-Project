@@ -1,0 +1,131 @@
+
+#artifacts_root: artifacts: This specifies the root directory for artifacts, which is set to "artifacts".
+#
+#data_ingestion: This section contains settings related to data ingestion.
+#
+#root_dir: artifacts/data_ingestion: Specifies the root directory for data ingestion artifacts.
+#source_URL: https://github.com/nasserml/Branching/raw/main/summarizer-data.zip: Specifies the source URL for the data ingestion process.
+#local_data_file: artifacts/data_ingestion/data.zip: Specifies the local data file for the data ingestion process.
+#unzip_dir: artifacts/data_ingestion: Specifies the directory to which the data should be unzipped.
+#data_validation: This section contains settings related to data validation.
+#
+#root_dir: artifacts/data_validation: Specifies the root directory for data validation artifacts.
+#STATUS_FILE: artifacts/data_validation/status.txt: Specifies the file path for the status file used in data validation.
+#ALL_REQUIRED_FILES: ["train", "test", "validation"]: Specifies a list of all the required files for data validation.
+#data_transformation: This section contains settings related to data transformation.
+#
+#root_dir: artifacts/data_transformation: Specifies the root directory for data transformation artifacts.
+#data_path: artifacts/data_ingestion/samsum_dataset: Specifies the path to the data used in data transformation.
+#tokenizer_name: google/pegasus-cnn_dailymail: Specifies the name of the tokenizer used in data transformation.
+#model_trainer: This section contains settings related to model training.
+#
+#root_dir: artifacts/model_trainer: Specifies the root directory for model training artifacts.
+#data_path: artifacts/data_transformation/samsum_dataset: Specifies the path to the data used in model training.
+#model_ckpt: google/pegasus-cnn_dailymail: Specifies the model checkpoint used in model training.
+#model_evaluation: This section contains settings related to model evaluation.
+#
+#root_dir: artifacts/model_evaluation: Specifies the root directory for model evaluation artifacts.
+#data_path: artifacts/data_transformation/samsum_dataset: Specifies the path to the data used in model evaluation.
+#model_path: artifacts/model_trainer/pegasus-samsum-model: Specifies the path to the trained model used in model evaluation.
+#tokenizer_path: artifacts/model_trainer/tokenizer: Specifies the path to the tokenizer used in model evaluation.
+#metric_file_name: artifacts/model_evaluation/metrics.csv: Specifies the file name for storing the evaluation metrics.
+#Overall, this configuration file organizes various settings into sections, each specifying the relevant paths and parameters for different stages of the summarizer pipeline, including data ingestion, validation, transformation, model training, and model evaluation.
+
+
+artifacts_root: artifacts
+
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: https://github.com/nasserml/Branching/raw/main/summarizer-data.zip
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_dir: artifacts/data_ingestion
+
+
+
+data_validation:
+  root_dir: artifacts/data_validation
+  STATUS_FILE: artifacts/data_validation/status.txt
+  ALL_REQUIRED_FILES: ["train", "test", "validation"]
+
+
+
+data_transformation:
+  root_dir: artifacts/data_transformation
+  data_path: artifacts/data_ingestion/samsum_dataset
+  tokenizer_name: google/pegasus-cnn_dailymail
+
+
+
+
+model_trainer:
+  root_dir: artifacts/model_trainer
+  data_path: artifacts/data_transformation/samsum_dataset
+  model_ckpt: google/pegasus-cnn_dailymail
+
+
+
+
+model_evaluation:
+  root_dir: artifacts/model_evaluation
+  data_path: artifacts/data_transformation/samsum_dataset
+  model_path: artifacts/model_trainer/pegasus-samsum-model
+  tokenizer_path: artifacts/model_trainer/tokenizer
+  metric_file_name: artifacts/model_evaluation/metrics.csv
+
+  
+
+#config/config.yaml: This line indicates that the code is referring to a YAML configuration file named "config.yaml" located in the "config" directory.
+#
+#artifacts_root: artifacts: This line sets the value of the "artifacts_root" key to "artifacts". It specifies the root directory for artifacts.
+#
+#data_ingestion:: This line starts a section named "data_ingestion" in the YAML file. It contains settings related to data ingestion.
+#
+#root_dir: artifacts/data_ingestion: This line sets the value of the "root_dir" key within the "data_ingestion" section to "artifacts/data_ingestion". It specifies the root directory for data ingestion artifacts.
+#
+#source_URL: https://github.com/nasserml/Branching/raw/main/summarizer-data.zip: This line sets the value of the "source_URL" key within the "data_ingestion" section to the provided URL. It specifies the URL from which the data should be downloaded for data ingestion.
+#
+#local_data_file: artifacts/data_ingestion/data.zip: This line sets the value of the "local_data_file" key within the "data_ingestion" section to "artifacts/data_ingestion/data.zip". It specifies the path to the local data file used for data ingestion.
+#
+#unzip_dir: artifacts/data_ingestion: This line sets the value of the "unzip_dir" key within the "data_ingestion" section to "artifacts/data_ingestion". It specifies the directory to which the data should be unzipped during data ingestion.
+#
+#data_validation:: This line starts a section named "data_validation" in the YAML file. It contains settings related to data validation.
+#
+#root_dir: artifacts/data_validation: This line sets the value of the "root_dir" key within the "data_validation" section to "artifacts/data_validation". It specifies the root directory for data validation artifacts.
+#
+#STATUS_FILE: artifacts/data_validation/status.txt: This line sets the value of the "STATUS_FILE" key within the "data_validation" section to "artifacts/data_validation/status.txt". It specifies the file path for the status file used in data validation.
+#
+#ALL_REQUIRED_FILES: ["train", "test", "validation"]: This line sets the value of the "ALL_REQUIRED_FILES" key within the "data_validation" section to a list containing the strings "train", "test", and "validation". It specifies all the required files for data validation.
+#
+#The remaining sections in the YAML file (data_transformation, model_trainer, and model_evaluation) follow a similar pattern. Each section starts with a name followed by a colon and contains specific key-value pairs related to the respective stage of the machine learning project (data transformation, model training, and model evaluation). The key-value pairs define various configuration settings, such as root directories, file paths, URLs, and other parameters relevant to each stage.
+#
+#data_transformation:: This line starts a section named "data_transformation" in the YAML file. It contains settings related to data transformation.
+#
+#root_dir: artifacts/data_transformation: This line sets the value of the "root_dir" key within the "data_transformation" section to "artifacts/data_transformation". It specifies the root directory for data transformation artifacts.
+#
+#data_path: artifacts/data_ingestion/samsum_dataset: This line sets the value of the "data_path" key within the "data_transformation" section to "artifacts/data_ingestion/samsum_dataset". It specifies the path to the data used in data transformation.
+#
+#tokenizer_name: google/pegasus-cnn_dailymail: This line sets the value of the "tokenizer_name" key within the "data_transformation" section to "google/pegasus-cnn_dailymail". It specifies the name of the tokenizer used in data transformation.
+#
+#model_trainer:: This line starts a section named "model_trainer" in the YAML file. It contains settings related to model training.
+#
+#root_dir: artifacts/model_trainer: This line sets the value of the "root_dir" key within the "model_trainer" section to "artifacts/model_trainer". It specifies the root directory for model training artifacts.
+#
+#data_path: artifacts/data_transformation/samsum_dataset: This line sets the value of the "data_path" key within the "model_trainer" section to "artifacts/data_transformation/samsum_dataset". It specifies the path to the data used in model training.
+#
+#model_ckpt: google/pegasus-cnn_dailymail: This line sets the value of the "model_ckpt" key within the "model_trainer" section to "google/pegasus-cnn_dailymail". It specifies the model checkpoint used in model training.
+#
+#model_evaluation:: This line starts a section named "model_evaluation" in the YAML file. It contains settings related to model evaluation.
+#
+#root_dir: artifacts/model_evaluation: This line sets the value of the "root_dir" key within the "model_evaluation" section to "artifacts/model_evaluation". It specifies the root directory for model evaluation artifacts.
+#
+#data_path: artifacts/data_transformation/samsum_dataset: This line sets the value of the "data_path" key within the "model_evaluation" section to "artifacts/data_transformation/samsum_dataset". It specifies the path to the data used in model evaluation.
+#
+#model_path: artifacts/model_trainer/pegasus-samsum-model: This line sets the value of the "model_path" key within the "model_evaluation" section to "artifacts/model_trainer/pegasus-samsum-model". It specifies the path to the trained model used in model evaluation.
+#
+#tokenizer_path: artifacts/model_trainer/tokenizer: This line sets the value of the "tokenizer_path" key within the "model_evaluation" section to "artifacts/model_trainer/tokenizer". It specifies the path to the tokenizer used in model evaluation.
+#
+#metric_file_name: artifacts/model_evaluation/metrics.csv: This line sets the value of the "metric_file_name" key within the "model_evaluation" section to "artifacts/model_evaluation/metrics.csv". It specifies the file name for storing the evaluation metrics.
+#
+#In summary, this YAML configuration file defines different sections for different aspects of a machine learning project related to text summarization. It includes settings for data ingestion, data validation, data transformation, model training
+#
