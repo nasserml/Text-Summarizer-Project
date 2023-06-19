@@ -1,1 +1,26 @@
-key: balue 
+TrainingArguments:
+  num_train_epochs: 1
+  warmup_steps: 500
+  per_device_train_batch_size: 1
+  weight_decay: 0.01
+  logging_steps: 10
+  evaluation_strategy: steps
+  eval_steps: 500
+  save_steps: 1e6
+  gradient_accumulation_steps: 16
+
+
+#The provided YAML code represents a configuration file for training a machine learning model for text summarization. Here's a summary of its contents:
+#
+#- `TrainingArguments` section:
+#  - `num_train_epochs: 1` defines the number of training epochs to be performed.
+#  - `warmup_steps: 500` specifies the number of warm-up steps during training.
+#  - `per_device_train_batch_size: 1` sets the batch size for each device used during training.
+#  - `weight_decay: 0.01` specifies the weight decay value for regularization during training.
+#  - `logging_steps: 10` determines the frequency of logging training progress.
+#  - `evaluation_strategy: steps` defines the evaluation strategy, which is based on the number of steps taken during training.
+#  - `eval_steps: 500` specifies the frequency of evaluation steps during training.
+#  - `save_steps: 1e6` determines the frequency of model checkpoint saving during training.
+#  - `gradient_accumulation_steps: 16` sets the number of gradient accumulation steps before performing an update during training.
+#
+#In summary, this configuration file sets various training parameters such as the number of epochs, batch size, evaluation strategy, logging frequency, and checkpoint saving frequency for training a text summarization model.
