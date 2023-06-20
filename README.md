@@ -178,11 +178,11 @@ The project structure is organized as follows:
     - [__init__.py](src/textSummarizer/pipeline/__init__.py): Initialization file for the pipeline module.
     - [prediction.py](src/textSummarizer/pipeline/prediction.py): Module for text summarization predictions.
 
-  - `stage_01_data_ingestion.py`: Script for stage 1 - data ingestion.
-  - `stage_02_data_validation.py`: Script for stage 2 - data validation.
-  - `stage_03_data_transformation.py`: Script for stage 3 - data transformation.
-  - `stage_04_model_trainer.py`: Script for stage 4 - model training.
-  - `stage_05_model_evaluation.py`: Script for stage 5 - model evaluation.
+  - [stage_01_data_ingestion.py](src/textSummarizer/stage_01_data_ingestion.py): Script for stage 1 - data ingestion.
+  - [stage_02_data_validation.py](src/textSummarizer/stage_02_data_validation.py): Script for stage 2 - data validation.
+  - [stage_03_data_transformation.py](src/textSummarizer/stage_03_data_transformation.py): Script for stage 3 - data transformation.
+  - [stage_04_model_trainer.py](src/textSummarizer/stage_04_model_trainer.py): Script for stage 4 - model training.
+  - [stage_05_model_evaluation.py](src/textSummarizer/stage_05_model_evaluation.py): Script for stage 5 - model evaluation.
 
   - `utils`: Contains utility modules used in the text summarizer.
     - [__init__.py](src/textSummarizer/utils/__init__.py): Initialization file for the utils module.
@@ -190,17 +190,17 @@ The project structure is organized as follows:
 
 - `swagger`: Contains Swagger API documentation files.
 
-- `.gitignore`: Specifies the files and directories to be ignored by Git.
-- `Dockerfile`: Dockerfile for building the project into a Docker container.
-- `LICENSE`: License file for the project.
-- `README.md`: This file, providing an overview of the project.
-- `app.py`: Main application script.
-- `main.py`: Main script for running the application.
-- `params.yaml`: Parameters file for the project.
-- `requirements.txt`: Python dependencies required by the project.
-- `setup.py`: Setup file for the project.
-- `template.py`: Template file for the project.
-- `test.py`: Test file for the project.
+- [.gitignore](.gitignore): Specifies the files and directories to be ignored by Git.
+- [Dockerfile](Dockerfile): Dockerfile for building the project into a Docker container.
+- [LICENSE](LICENSE): License file for the project.
+- [README.md](README.md): This file, providing an overview of the project.
+- [app.py](app.py): Main application script.
+- [main.py](main.py): Main script for running the application.
+- [params.yaml](params.yaml): Parameters file for the project.
+- [requirements.txt](requirements.txt): Python dependencies required by the project.
+- [setup.py](setup.py): Setup file for the project.
+- [template.py](template.py): Template file for the project.
+- [test.py](test.py): Test file for the project.
 
 
 ## Getting Started
