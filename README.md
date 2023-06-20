@@ -136,47 +136,71 @@ This repository contains an end-to-end text summarization project. The project a
 
 ## Project Structure
 
-- [`.github/workflows/main.yaml`](.github/workflows/main.yaml): GitHub Actions workflow file for continuous integration and continuous delivery.
-- [`config/config.yaml`](config/config.yaml): Configuration file for the project.
-- `research/`: Directory containing Jupyter Notebook files for various research and experimentation stages.
-  - [`01_data_ingestion.ipynb`](research/01_data_ingestion.ipynb): Notebook for data ingestion.
-  - [`02_data_validation.ipynb`](research/02_data_validation.ipynb): Notebook for data validation.
-  - [`03_data_transformation.ipynb`](research/03_data_transformation.ipynb): Notebook for data transformation.
-  - [`04_model_trainer.ipynb`](research/04_model_trainer.ipynb): Notebook for model training.
-  - [`05_model_evaluation.ipynb`](research/05_model_evaluation.ipynb): Notebook for model evaluation.
-  - [`Text_Summarization.ipynb`](research/Text_Summarization.ipynb): Main notebook for the text summarization process.
-  - [`trails.ipynb`](research/trails.ipynb): Miscellaneous notebook for experimentation and trails.
-- `src/textSummarizer/`: Directory containing the source code of the text summarizer.
-  - `components/`: Directory for different components of the text summarizer.
-    - [`data_ingestion.py`](src/textSummarizer/components/data_ingestion.py): Module for data ingestion.
-    - [`data_transformation.py`](src/textSummarizer/components/data_transformation.py): Module for data transformation.
-    - [`data_validation.py`](src/textSummarizer/components/data_validation.py): Module for data validation.
-    - [`model_evaluation.py`](src/textSummarizer/components/model_evaluation.py): Module for model evaluation.
-    - [`model_trainer.py`](src/textSummarizer/components/model_trainer.py): Module for model training.
-  - `config/`: Directory for configuration related modules.
-    - [`configuration.py`](src/textSummarizer/config/configuration.py): Configuration module.
-  - `constants/`: Directory for constant variables.
-    - `entity/`: Directory for entity-related constants.
-    - `logging/`: Directory for logging-related constants.
-    - `pipeline/`: Directory for pipeline-related constants.
-  - [`prediction.py`](src/textSummarizer/prediction.py): Module for making predictions using the trained model.
-  - [`stage_01_data_ingestion.py`](src/textSummarizer/stage_01_data_ingestion.py): Stage 1 script for data ingestion.
-  - [`stage_02_data_validation.py`](src/textSummarizer/stage_02_data_validation.py): Stage 2 script for data validation.
-  - [`stage_03_data_transformation.py`](src/textSummarizer/stage_03_data_transformation.py): Stage 3 script for data transformation.
-  - [`stage_04_model_trainer.py`](src/textSummarizer/stage_04_model_trainer.py): Stage 4 script for model training.
-  - [`stage_05_model_evaluation.py`](src/textSummarizer/stage_05_model_evaluation.py): Stage 5 script for model evaluation.
-  - `utils/`: Directory for utility modules.
-    - [`common.py`](src/textSummarizer/utils/common.py): Common utility module.
-  - `swagger/`: Directory for Swagger related files.
-- [`.gitignore`](.gitignore): Git ignore file to specify files and directories that should be ignored by Git.
-- [`Dockerfile`](Dockerfile): Dockerfile for containerizing the application.
-- [`LICENSE`](LICENSE): License file for the project.
-- [`README.md`](README.md): This README file.
-- [`app.py`](app.py): Main application file.
-- [`main.py`](main.py): Main script to run the application.
-- [`params.yaml`](params.yaml): YAML file for specifying parameters.
-- [`requirements.txt`](requirements.txt): List of Python dependencies required for the project.
-- [`setup.py`](setup.py): Setup script for packaging the project.
+The project structure is organized as follows:
+
+- `.github/workflows`: Contains the GitHub Actions workflow configuration files.
+  - [main.yaml](.github/workflows/main.yaml): Workflow file for Continuous Integration and Continuous Delivery.
+
+- `config`: Contains configuration files for the project.
+  - [config.yaml](config/config.yaml): Configuration file for the project.
+
+- `research`: Contains Jupyter notebooks related to data analysis and experimentation.
+  - [01_data_ingestion.ipynb](research/01_data_ingestion.ipynb): Notebook for data ingestion.
+  - [02_data_validation.ipynb](research/02_data_validation.ipynb): Notebook for data validation.
+  - [03_data_transformation.ipynb](research/03_data_transformation.ipynb): Notebook for data transformation.
+  - [04_model_trainer.ipynb](research/04_model_trainer.ipynb): Notebook for model training.
+  - [05_model_evaluation.ipynb](research/05_model_evaluation.ipynb): Notebook for model evaluation.
+  - [Text_Summarization.ipynb](research/Text_Summarization.ipynb): Main notebook for text summarization.
+
+- `src/textSummarizer`: Contains the source code for the text summarizer.
+  - `components`: Contains the components of the text summarizer.
+    - [__init__.py](src/textSummarizer/components/__init__.py): Initialization file for the components module.
+    - [data_ingestion.py](src/textSummarizer/components/data_ingestion.py): Module for data ingestion.
+    - [data_transformation.py](src/textSummarizer/components/data_transformation.py): Module for data transformation.
+    - [data_validation.py](src/textSummarizer/components/data_validation.py): Module for data validation.
+    - [model_evaluation.py](src/textSummarizer/components/model_evaluation.py): Module for model evaluation.
+    - [model_trainer.py](src/textSummarizer/components/model_trainer.py): Module for model training.
+
+  - `config`: Contains the configuration files for the text summarizer.
+    - [__init__.py](src/textSummarizer/config/__init__.py): Initialization file for the config module.
+    - [configuration.py](src/textSummarizer/config/configuration.py): Module for configuration settings.
+
+  - `constants`: Contains constant values used in the text summarizer.
+    - [__init__.py](src/textSummarizer/constants/__init__.py): Initialization file for the constants module.
+
+  - `entity`: Contains entity classes used in the text summarizer.
+    - [__init__.py](src/textSummarizer/entity/__init__.py): Initialization file for the entity module.
+
+  - `logging`: Contains modules related to logging.
+    - [__init__.py](src/textSummarizer/logging/__init__.py): Initialization file for the logging module.
+
+  - `pipeline`: Contains the pipeline modules for text summarization.
+    - [__init__.py](src/textSummarizer/pipeline/__init__.py): Initialization file for the pipeline module.
+    - [prediction.py](src/textSummarizer/pipeline/prediction.py): Module for text summarization predictions.
+
+  - `stage_01_data_ingestion.py`: Script for stage 1 - data ingestion.
+  - `stage_02_data_validation.py`: Script for stage 2 - data validation.
+  - `stage_03_data_transformation.py`: Script for stage 3 - data transformation.
+  - `stage_04_model_trainer.py`: Script for stage 4 - model training.
+  - `stage_05_model_evaluation.py`: Script for stage 5 - model evaluation.
+
+  - `utils`: Contains utility modules used in the text summarizer.
+    - [__init__.py](src/textSummarizer/utils/__init__.py): Initialization file for the utils module.
+    - [common.py](src/textSummarizer/utils/common.py): Module for common utility functions.
+
+- `swagger`: Contains Swagger API documentation files.
+
+- `.gitignore`: Specifies the files and directories to be ignored by Git.
+- `Dockerfile`: Dockerfile for building the project into a Docker container.
+- `LICENSE`: License file for the project.
+- `README.md`: This file, providing an overview of the project.
+- `app.py`: Main application script.
+- `main.py`: Main script for running the application.
+- `params.yaml`: Parameters file for the project.
+- `requirements.txt`: Python dependencies required by the project.
+- `setup.py`: Setup file for the project.
+- `template.py`: Template file for the project.
+- `test.py`: Test file for the project.
 
 
 ## Getting Started
