@@ -129,3 +129,52 @@ Email: krishnaik06@gmail.com
     AWS_ECR_LOGIN_URI = demo>>  566373416292.dkr.ecr.ap-south-1.amazonaws.com
 
     ECR_REPOSITORY_NAME = simple-app
+
+# End-to-End Text Summarizer Project
+
+This repository contains an end-to-end text summarization project. The project aims to build a text summarization system using machine learning techniques.
+
+## Project Structure
+
+- [`.github/workflows/main.yaml`](.github/workflows/main.yaml): GitHub Actions workflow file for continuous integration and continuous delivery.
+- [`config/config.yaml`](config/config.yaml): Configuration file for the project.
+- `research/`: Directory containing Jupyter Notebook files for various research and experimentation stages.
+  - [`01_data_ingestion.ipynb`](research/01_data_ingestion.ipynb): Notebook for data ingestion.
+  - [`02_data_validation.ipynb`](research/02_data_validation.ipynb): Notebook for data validation.
+  - [`03_data_transformation.ipynb`](research/03_data_transformation.ipynb): Notebook for data transformation.
+  - [`04_model_trainer.ipynb`](research/04_model_trainer.ipynb): Notebook for model training.
+  - [`05_model_evaluation.ipynb`](research/05_model_evaluation.ipynb): Notebook for model evaluation.
+  - [`Text_Summarization.ipynb`](research/Text_Summarization.ipynb): Main notebook for the text summarization process.
+  - [`trails.ipynb`](research/trails.ipynb): Miscellaneous notebook for experimentation and trails.
+- `src/textSummarizer/`: Directory containing the source code of the text summarizer.
+  - `components/`: Directory for different components of the text summarizer.
+    - [`data_ingestion.py`](src/textSummarizer/components/data_ingestion.py): Module for data ingestion.
+    - [`data_transformation.py`](src/textSummarizer/components/data_transformation.py): Module for data transformation.
+    - [`data_validation.py`](src/textSummarizer/components/data_validation.py): Module for data validation.
+    - [`model_evaluation.py`](src/textSummarizer/components/model_evaluation.py): Module for model evaluation.
+    - [`model_trainer.py`](src/textSummarizer/components/model_trainer.py): Module for model training.
+  - `config/`: Directory for configuration related modules.
+    - [`configuration.py`](src/textSummarizer/config/configuration.py): Configuration module.
+  - `constants/`: Directory for constant variables.
+    - `entity/`: Directory for entity-related constants.
+    - `logging/`: Directory for logging-related constants.
+    - `pipeline/`: Directory for pipeline-related constants.
+  - [`prediction.py`](src/textSummarizer/prediction.py): Module for making predictions using the trained model.
+  - [`stage_01_data_ingestion.py`](src/textSummarizer/stage_01_data_ingestion.py): Stage 1 script for data ingestion.
+  - [`stage_02_data_validation.py`](src/textSummarizer/stage_02_data_validation.py): Stage 2 script for data validation.
+  - [`stage_03_data_transformation.py`](src/textSummarizer/stage_03_data_transformation.py): Stage 3 script for data transformation.
+  - [`stage_04_model_trainer.py`](src/textSummarizer/stage_04_model_trainer.py): Stage 4 script for model training.
+  - [`stage_05_model_evaluation.py`](src/textSummarizer/stage_05_model_evaluation.py): Stage 5 script for model evaluation.
+  - `utils/`: Directory for utility modules.
+    - [`common.py`](src/textSummarizer/utils/common.py): Common utility module.
+  - `swagger/`: Directory for Swagger related files.
+- [`.gitignore`](.gitignore): Git ignore file to specify files and directories that should be ignored by Git.
+- [`Dockerfile`](Dockerfile): Dockerfile for containerizing the application.
+- [`LICENSE`](LICENSE): License file for the project.
+- [`README.md`](README.md): This README file.
+- [`app.py`](app.py): Main application file.
+- [`main.py`](main.py): Main script to run the application.
+- [`params.yaml`](params.yaml): YAML file for specifying parameters.
+- [`requirements.txt`](requirements.txt): List of Python dependencies required for the project.
+- [`setup.py`](setup.py): Setup script for packaging the project.
+
