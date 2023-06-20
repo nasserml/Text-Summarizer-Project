@@ -177,12 +177,11 @@ The project structure is organized as follows:
   - `pipeline`: Contains the pipeline modules for text summarization.
     - [__init__.py](src/textSummarizer/pipeline/__init__.py): Initialization file for the pipeline module.
     - [prediction.py](src/textSummarizer/pipeline/prediction.py): Module for text summarization predictions.
-
-  - [stage_01_data_ingestion.py](src/textSummarizer/stage_01_data_ingestion.py): Script for stage 1 - data ingestion.
-  - [stage_02_data_validation.py](src/textSummarizer/stage_02_data_validation.py): Script for stage 2 - data validation.
-  - [stage_03_data_transformation.py](src/textSummarizer/stage_03_data_transformation.py): Script for stage 3 - data transformation.
-  - [stage_04_model_trainer.py](src/textSummarizer/stage_04_model_trainer.py): Script for stage 4 - model training.
-  - [stage_05_model_evaluation.py](src/textSummarizer/stage_05_model_evaluation.py): Script for stage 5 - model evaluation.
+    - [stage_01_data_ingestion.py](src/textSummarizer/pipeline/stage_01_data_ingestion.py): Script for stage 1 - data ingestion.
+    - [stage_02_data_validation.py](src/textSummarizer/pipeline/pipeline/stage_02_data_validation.py): Script for stage 2 - data validation.
+    - [stage_03_data_transformation.py](src/textSummarizer/pipeline/stage_03_data_transformation.py): Script for stage 3 - data transformation.
+    - [stage_04_model_trainer.py](src/textSummarizer/pipeline/stage_04_model_trainer.py): Script for stage 4 - model training.
+    - [stage_05_model_evaluation.py](src/textSummarizer/pipeline/stage_05_model_evaluation.py): Script for stage 5 - model evaluation.
 
   - `utils`: Contains utility modules used in the text summarizer.
     - [__init__.py](src/textSummarizer/utils/__init__.py): Initialization file for the utils module.
