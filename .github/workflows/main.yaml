@@ -1,0 +1,248 @@
+name: workflow
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  integration:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Lint code
+        run: echo "Linting repository"
+
+      - name: Run unit tests
+        run: echo "Running unit tests"
+
+  build-and-push-ecr-image:
+    name: Continuous Delivery
+    needs: integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq unzip
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
+          IMAGE_TAG: latest
+        run: |
+          # Build a docker container and
+          # push it to ECR so that it can
+          # be deployed to ECS.
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          
+          
+  Continuous-Deployment:
+    needs: build-and-push-ecr-image
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      
+      
+      - name: Pull latest images
+        run: |
+         docker pull ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+         
+      # - name: Stop and remove container if running
+      #   run: |
+      #    docker ps -q --filter "name=texts" | grep -q . && docker stop texts && docker rm -fv texts
+       
+      - name: Run Docker Image to serve users
+        run: |
+         docker run -d -p 8080:8080 --name=texts -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' -e 'AWS_REGION=${{ secrets.AWS_REGION }}'  ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+      - name: Clean previous images and containers
+        run: |
+         docker system prune -f
+
+
+#This is a YAML file that defines a workflow for a machine learning project focused on text summarization. Let's go through each line and understand its purpose:
+#
+#```yaml
+#name: workflow
+#```
+#This line specifies the name of the workflow.
+#
+#```yaml
+#on:
+#  push:
+#    branches:
+#      - main
+#    paths-ignore:
+#      - 'README.md'
+#```
+#This section defines the events that trigger the workflow. In this case, the workflow is triggered on a push event to the main branch, and it ignores changes to the README.md file.
+#
+#```yaml
+#permissions:
+#  id-token: write
+#  contents: read
+#```
+#This section specifies the permissions required for the workflow. It sets write permission for the ID token and read permission for contents.
+#
+#```yaml
+#jobs:
+#  integration:
+#    name: Continuous Integration
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v3
+#```
+#This defines the first job named "integration" for continuous integration. It runs on an Ubuntu environment and includes a step to checkout the code using the actions/checkout action.
+#
+#```yaml
+#      - name: Lint code
+#        run: echo "Linting repository"
+#```
+#This step is named "Lint code" and runs a command to echo a message indicating that the repository is being linted. This is a placeholder step and can be replaced with actual linting commands.
+#
+#```yaml
+#      - name: Run unit tests
+#        run: echo "Running unit tests"
+#```
+#Similar to the previous step, this step is named "Run unit tests" and runs a command to echo a message indicating that unit tests are being run. It can be replaced with actual unit testing commands.
+#
+#```yaml
+#  build-and-push-ecr-image:
+#    name: Continuous Delivery
+#    needs: integration
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v3
+#```
+#This defines the second job named "build-and-push-ecr-image" for continuous delivery. It depends on the completion of the "integration" job and runs on an Ubuntu environment. It also includes a step to checkout the code.
+#
+#```yaml
+#      - name: Install Utilities
+#        run: |
+#          sudo apt-get update
+#          sudo apt-get install -y jq unzip
+#```
+#This step installs the required utilities (jq and unzip) using apt-get.
+#
+#```yaml
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: ${{ secrets.AWS_REGION }}
+#```
+#This step configures AWS credentials using the aws-actions/configure-aws-credentials action. The access key ID, secret access key, and region are specified using secrets.
+#
+#```yaml
+#      - name: Login to Amazon ECR
+#        id: login-ecr
+#        uses: aws-actions/amazon-ecr-login@v1
+#```
+#This step logs in to Amazon Elastic Container Registry (ECR) using the aws-actions/amazon-ecr-login action.
+#
+#```yaml
+#      - name: Build, tag, and push image to Amazon ECR
+#        id: build-image
+#        env:
+#          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
+#          IMAGE_TAG: latest
+#        run: |
+#          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+#          docker push $ECR_REGISTRY/$ECR
+#
+#_REPOSITORY:$IMAGE_TAG
+#          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+#```
+#This step builds, tags, and pushes a Docker image to Amazon ECR. It uses the login-ecr step's outputs to get the ECR registry URL. The repository name and image tag are set as environment variables. The Docker image is built, pushed to ECR, and the image path is set as an output variable.
+#
+#```yaml
+#  Continuous-Deployment:
+#    needs: build-and-push-ecr-image
+#    runs-on: self-hosted
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v3
+#```
+#This defines the third job named "Continuous-Deployment" for deploying the application. It depends on the completion of the "build-and-push-ecr-image" job. It runs on a self-hosted environment, which means it is expected to be deployed on a separate infrastructure.
+#
+#```yaml
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: ${{ secrets.AWS_REGION }}
+#```
+#This step configures AWS credentials using the aws-actions/configure-aws-credentials action. The access key ID, secret access key, and region are specified using secrets.
+#
+#```yaml
+#      - name: Login to Amazon ECR
+#        id: login-ecr
+#        uses: aws-actions/amazon-ecr-login@v1
+#```
+#This step logs in to Amazon ECR using the aws-actions/amazon-ecr-login action.
+#
+#```yaml
+#      - name: Pull latest images
+#        run: |
+#         docker pull ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+#```
+#This step pulls the latest Docker image from Amazon ECR using the docker pull command.
+#
+#```yaml
+#      - name: Run Docker Image to serve users
+#        run: |
+#         docker run -d -p 8080:8080 --name=texts -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' -e 'AWS_REGION=${{ secrets.AWS_REGION }}'  ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+#```
+#This step runs the Docker image to serve users. It starts a Docker container named "texts" and exposes it on port 8080. It sets environment variables for AWS access key ID, secret access key, and region. The Docker image is pulled from the ECR repository.
+#
+#```yaml
+#      - name: Clean previous images and containers
+#        run: |
+#         docker system prune -f
+#```
+#This step cleans up previous Docker images and containers using the docker system prune command with the -f (force) flag.
+#
+#Overall, this YAML file defines a workflow that includes continuous integration, continuous delivery, and continuous deployment stages for a machine learning project focused on text summarization. It utilizes AWS services, Docker, and GitHub Actions to automate the building, testing, and deployment processes.
