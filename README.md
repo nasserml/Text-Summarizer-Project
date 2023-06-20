@@ -178,3 +178,18 @@ This repository contains an end-to-end text summarization project. The project a
 - [`requirements.txt`](requirements.txt): List of Python dependencies required for the project.
 - [`setup.py`](setup.py): Setup script for packaging the project.
 
+
+## Getting Started
+
+To get started with the project, follow the instructions below:
+
+1. Clone the repository: `git clone https://github.com/your-username/your-repo.git`
+2. Install the dependencies: `pip install -r requirements.txt`
+3. Configure the project parameters in `params.yaml`.
+4. Run the application: `python main.py`
+5. Access the text summarization API at `http://localhost:8080`.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
