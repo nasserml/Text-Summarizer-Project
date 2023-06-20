@@ -81,6 +81,16 @@ class ModelTrainerConfig:
     gradient_accumulation_steps: int
 
 
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir: Path
+    data_path: Path
+    model_path: Path
+    tokenizer_path: Path
+    metric_file_name: Path
+    
+
+
 
 """ 
 from dataclasses import dataclass: This line imports the dataclass decorator from the dataclasses module. The dataclass decorator simplifies the process of creating classes that primarily hold data.
